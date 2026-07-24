@@ -6,8 +6,8 @@ title: "嘘——"
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  if (!sessionStorage.getItem('secret_access')) {
-    window.location.href = '/'
+  if (!window.location.search.includes('p=1')) {
+    window.location.replace('/')
   }
 })
 </script>
