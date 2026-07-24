@@ -35,11 +35,16 @@ onMounted(() => {
   if (btn) {
     btn.addEventListener('click', (e) => {
       e.preventDefault()
-      const answer = prompt('你是谁？')
-      if (answer === '刘芯琳') {
+      const first = prompt('你是谁？')
+      if (first !== '刘芯琳') {
+        if (first !== null) alert('不认识你，别闹。')
+        return
+      }
+      const second = prompt('我又是谁？')
+      if (second === '王敏璋') {
         window.location.href = '/guide/secret'
-      } else if (answer !== null) {
-        alert('不认识你，别闹。')
+      } else if (second !== null) {
+        alert('这样也好')
       }
     })
   }
