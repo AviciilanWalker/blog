@@ -1,5 +1,7 @@
 {
   "installCommand": "npm install",
   "buildCommand": "npx vitepress build",
-  "outputDirectory": ".vitepress/dist"
+  "outputDirectory": ".vitepress/dist",
+  "cleanUrls": true,
+  "trailingSlash": false
 }
