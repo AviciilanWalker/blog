@@ -12,6 +12,9 @@ hero:
     - theme: alt
       text: 技术随笔
       link: /notes/
+    - theme: alt
+      text: 想看点别的？
+      link: 'javascript:void(0)'
 
 features:
   - title: LLM 学习
@@ -23,3 +26,22 @@ features:
     link: /notes/
     linkText: 随便看看
 ---
+
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const btn = document.querySelector('a[href="javascript:void(0)"]')
+  if (btn) {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault()
+      const answer = prompt('你是谁？')
+      if (answer === '刘芯琳') {
+        window.location.href = '/guide/secret'
+      } else if (answer !== null) {
+        alert('不认识你，别闹。')
+      }
+    })
+  }
+})
+</script>
