@@ -189,7 +189,7 @@ $$\text{PPL} = e^{\text{Loss}} = \exp(\text{交叉熵损失})$$
 
 前面讲的是单个 token 的损失，但实际训练中是一整句话一起算的。下面用一个完整的例子走一遍，看看损失到底是怎么出来的。
 
-假设模型正在处理一句话，词表只有 6 个 token：[the, cat, sat, on, mat, `<EOS>`]。给定上文 "the cat"，模型需要预测下一个 token。在预训练中，整个句子拆成 4 个预测任务：
+假设模型正在处理一句话，词表只有 6 个 token：[the, cat, sat, on, mat, <EOS>]。给定上文 "the cat"，模型需要预测下一个 token。在预训练中，整个句子拆成 4 个预测任务：
 
 ```
 位置1: 输入 [the]           → 预测 cat     （正确答案是 cat）
@@ -963,15 +963,7 @@ GPU：RTX 4090 (24GB) 或以上
 
 ## 本阶段小结
 
-```
-预训练：海量互联网文本 → Next-token prediction → 基座模型（会续写）
-    │
-    ▼
-SFT：高质量指令-回答对 → 学会对话格式 → 指令模型（会聊天）
-    │
-    ▼
-对齐（DPO + RLVR）：偏好数据 + 可验证奖励 → 对齐人类偏好 → 最终助手
-```
+![LLM 三阶段训练流程](/images/training_pipeline_summary.png)
 
 七个核心 takeaway：
 

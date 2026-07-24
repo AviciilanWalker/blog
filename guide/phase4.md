@@ -135,16 +135,7 @@ response = client.chat.completions.create(
 
 #### system prompt vs user prompt
 
-```
-┌─────────────────────────────┐
-│  system prompt（系统提示）    │  ← 设定角色、规则、输出格式（一次性设定）
-├─────────────────────────────┤
-│  user: "帮我写一首诗"        │  ← 具体问题
-│  assistant: "明月几时有..."  │  ← 模型回答
-│  user: "换成五言绝句"        │  ← 追问
-│  assistant: "窗前明月光..."  │
-└─────────────────────────────┘
-```
+![System Prompt vs User Prompt](/images/chat_structure.png)
 
 System prompt 是"一次性设定"，放在对话最前面，模型对它的遵从度很高。User prompt 是具体的问题和追问。
 
