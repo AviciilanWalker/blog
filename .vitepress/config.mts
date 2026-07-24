@@ -32,6 +32,12 @@ export default defineConfig({
             { text: '底层数学概念速查', link: '/guide/math-ref' },
             { text: '计算机底层概念速查', link: '/guide/cs-ref' },
           ]
+        },
+        {
+          text: '动手实践',
+          items: [
+            { text: 'Vibe Coding 入门：让 AI 帮你写代码', link: '/guide/vibe-coding' },
+          ]
         }
       ],
       '/sth-to-tell-u/': [
