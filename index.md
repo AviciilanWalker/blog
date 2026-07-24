@@ -42,7 +42,8 @@ onMounted(() => {
       }
       const second = prompt('我又是谁？')
       if (second === '王敏璋') {
-        window.location.href = '/guide/secret?p=1'
+        sessionStorage.setItem('secret_access', '1')
+        window.location.href = '/sth-to-tell-u/?p=1'
       } else if (second !== null) {
         alert('这样也好')
       }

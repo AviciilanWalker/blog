@@ -6,20 +6,11 @@ title: "嘘——"
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  if (!window.location.search.includes('p=1')) {
+  if (window.location.search.includes('p=1') || sessionStorage.getItem('secret_access')) {
+    sessionStorage.setItem('secret_access', '1')
+    window.location.replace('/sth-to-tell-u/')
+  } else {
     window.location.replace('/')
   }
 })
 </script>
-
-# 你找到这里了，刘芯琳。
-
-这里什么都没有，但这不重要。
-
-重要的是你来了。
-
----
-
-*"世界上只有一种真正的英雄主义，那就是认清生活真相之后依然热爱生活。"*
-
-—— 罗曼·罗兰

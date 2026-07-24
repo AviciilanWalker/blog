@@ -16,6 +16,7 @@ export default defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: '学习笔记', link: '/guide/phase1' },
+      { text: '随笔', link: '/notes/' },
     ],
 
     sidebar: {
@@ -30,6 +31,14 @@ export default defineConfig({
             { text: '第五阶段：进阶主题', link: '/guide/phase5' },
             { text: '底层数学概念速查', link: '/guide/math-ref' },
             { text: '计算机底层概念速查', link: '/guide/cs-ref' },
+          ]
+        }
+      ],
+      '/sth-to-tell-u/': [
+        {
+          text: '想告诉你的一些事',
+          items: [
+            { text: '认知、过拟合与一些不成器的恨', link: '/sth-to-tell-u/2026-07-22' },
           ]
         }
       ],
