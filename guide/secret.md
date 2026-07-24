@@ -2,6 +2,16 @@
 title: "嘘——"
 ---
 
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  if (!sessionStorage.getItem('secret_access')) {
+    window.location.href = '/'
+  }
+})
+</script>
+
 # 你找到这里了，刘芯琳。
 
 这里什么都没有，但这不重要。
