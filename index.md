@@ -5,16 +5,6 @@ hero:
   name: "Requiem如是说"
   text: "请输入文本"
   tagline: 不知道为什么但就是很想急头白脸花100租个域名然后写一些莫名其妙的东西
-  actions:
-    - theme: brand
-      text: LLM 学习笔记
-      link: /guide/phase1
-    - theme: alt
-      text: 技术随笔
-      link: /notes/
-    - theme: alt
-      text: 想看点别的？
-      link: 'javascript:void(0)'
 
 features:
   - title: LLM 学习
@@ -27,11 +17,15 @@ features:
     linkText: 随便看看
 ---
 
+<div class="secret-link" style="text-align:center;margin-top:2rem;">
+  <a href="javascript:void(0)" style="color:#bbb;font-size:0.8rem;text-decoration:none;">想看点别的？</a>
+</div>
+
 <script setup>
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  const btn = document.querySelector('a[href="javascript:void(0)"]')
+  const btn = document.querySelector('.secret-link a')
   if (btn) {
     btn.addEventListener('click', (e) => {
       e.preventDefault()
