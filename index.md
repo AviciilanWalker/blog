@@ -13,7 +13,7 @@ features:
     linkText: 开始阅读
   - title: Vibe Coding
     details: 让 AI 帮你写代码，你只需要描述你想要什么
-    link: /guide/vibe-coding
+    link: /vibe-coding/
     linkText: 上手试试
   - title: 一些随笔
     details: 踩过的坑，搞砸的事，错付的人

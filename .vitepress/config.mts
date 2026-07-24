@@ -16,6 +16,7 @@ export default defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: '学习笔记', link: '/guide/phase1' },
+      { text: 'Vibe Coding', link: '/vibe-coding/' },
       { text: '随笔', link: '/notes/' },
     ],
 
@@ -32,11 +33,13 @@ export default defineConfig({
             { text: '底层数学概念速查', link: '/guide/math-ref' },
             { text: '计算机底层概念速查', link: '/guide/cs-ref' },
           ]
-        },
+        }
+      ],
+      '/vibe-coding/': [
         {
-          text: '动手实践',
+          text: 'Vibe Coding',
           items: [
-            { text: 'Vibe Coding 入门：让 AI 帮你写代码', link: '/guide/vibe-coding' },
+            { text: '入门：让 AI 帮你写代码', link: '/vibe-coding/' },
           ]
         }
       ],
