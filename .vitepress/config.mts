@@ -9,7 +9,7 @@ export default defineConfig({
   head: [
     ['meta', { name: 'robots', content: 'noindex, nofollow' }],
     ['script', {},
-      `fetch('/api/log-visit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:location.pathname})}).catch(()=>{})`
+      `(function(){var l="";function t(){var p=location.pathname;if(p===l)return;l=p;fetch('/api/log-visit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:p})}).catch(function(){})}t();var ps=history.pushState.bind(history),rs=history.replaceState.bind(history);history.pushState=function(){ps.apply(history,arguments);setTimeout(t,50)};history.replaceState=function(){rs.apply(history,arguments);setTimeout(t,50)};window.addEventListener('popstate',function(){setTimeout(t,50)})})()`
     ]
   ],
 
