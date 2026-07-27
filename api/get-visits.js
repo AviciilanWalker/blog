@@ -1,10 +1,7 @@
 // 查询访问记录
 const { Redis } = require('@upstash/redis');
 
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_URL,
-  token: process.env.UPSTASH_REDIS_TOKEN,
-});
+const redis = Redis.fromEnv();
 
 module.exports = async (req, res) => {
   if (req.query.secret !== 'requiem2026') {
@@ -14,7 +11,6 @@ module.exports = async (req, res) => {
   try {
     const total = (await redis.get('visits:total')) || 0;
 
-    // 扫描所有 visit key，返回最近 100 条
     let keys = [];
     let cursor = '0';
     do {
@@ -23,7 +19,6 @@ module.exports = async (req, res) => {
       keys = keys.concat(found);
     } while (cursor !== '0' && keys.length < 200);
 
-    // 按 key 中的时间戳排序（key 格式: v:timestamp:random）
     keys.sort((a, b) => {
       const ta = parseInt(a.split(':')[1]) || 0;
       const tb = parseInt(b.split(':')[1]) || 0;

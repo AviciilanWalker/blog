@@ -1,10 +1,7 @@
-// 记录每次访问到 Upstash Redis
+// 记录每次访问
 const { Redis } = require('@upstash/redis');
 
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_URL,
-  token: process.env.UPSTASH_REDIS_TOKEN,
-});
+const redis = Redis.fromEnv();
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -29,9 +26,8 @@ module.exports = async (req, res) => {
     const id = `v:${Date.now()}:${Math.random().toString(36).slice(2, 8)}`;
 
     await redis.set(id, JSON.stringify(entry));
-    await redis.expire(id, 60 * 60 * 24 * 30); // 30天过期
+    await redis.expire(id, 60 * 60 * 24 * 30);
 
-    // 更新计数器（方便查总量）
     await redis.incr('visits:total');
 
     res.status(200).json({ ok: true });
