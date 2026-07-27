@@ -358,7 +358,7 @@ Vibe Coding 改变了写代码的姿势，但没改变做事的本质：**你需
 
 ## 延伸阅读（有功夫的话瞎jb看看吧，反正我没看过）
 
-- Andrej Karpathy, "Vibe Coding", Twitter/X, Feb 2025. https://x.com/karpathy/status/1886192044808729058
+- Andrej Karpathy, "Vibe Coding", Twitter/X, Feb 2025. https://x.com/karpathy/status/1886192184808149383
 - Cursor Official Documentation, 2026. https://docs.cursor.com
 - Claude Code Official Documentation, 2026. https://docs.anthropic.com/en/docs/claude-code
 - Windsurf Official Documentation, 2026. https://docs.windsurf.com
