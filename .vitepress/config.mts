@@ -9,7 +9,7 @@ export default defineConfig({
   head: [
     ['meta', { name: 'robots', content: 'noindex, nofollow' }],
     ['script', {},
-      `fetch('/api/log-visit',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'}).catch(()=>{})`
+      `fetch('/api/log-visit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:location.pathname})}).catch(()=>{})`
     ]
   ],
 
