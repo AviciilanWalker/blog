@@ -69,14 +69,6 @@ export default defineConfig({
           ]
         }
       ],
-      '/sth-to-tell-u/': [
-        {
-          text: '想告诉你的一些事',
-          items: [
-            { text: '认知、过拟合与一些不成器的恨', link: '/sth-to-tell-u/2026-07-22' },
-          ]
-        }
-      ],
     },
 
     footer: {
