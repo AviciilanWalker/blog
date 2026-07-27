@@ -48,8 +48,20 @@ export default defineConfig({
         {
           text: '大学生存指南',
           items: [
-            { text: '活得更爽', link: '/survival-guide/live-better' },
-            { text: '卷得更猛', link: '/survival-guide/hustle-harder' },
+            {
+              text: '活得更爽',
+              collapsed: false,
+              items: [
+                { text: '概述', link: '/survival-guide/live-better/' },
+              ]
+            },
+            {
+              text: '卷得更猛',
+              collapsed: false,
+              items: [
+                { text: '概述', link: '/survival-guide/hustle-harder/' },
+              ]
+            },
           ]
         }
       ],
