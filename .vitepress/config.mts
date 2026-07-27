@@ -7,7 +7,10 @@ export default defineConfig({
   lang: 'zh-CN',
 
   head: [
-    ['meta', { name: 'robots', content: 'noindex, nofollow' }]
+    ['meta', { name: 'robots', content: 'noindex, nofollow' }],
+    ['script', {},
+      `fetch('/api/log-visit',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'}).catch(()=>{})`
+    ]
   ],
 
   markdown: {
