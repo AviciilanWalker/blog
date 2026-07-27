@@ -6,6 +6,10 @@ export default defineConfig({
   description: "从LLM到人生，想到什么写什么",
   lang: 'zh-CN',
 
+  head: [
+    ['meta', { name: 'robots', content: 'noindex, nofollow' }]
+  ],
+
   markdown: {
     config: (md) => {
       md.use(mathjax3)

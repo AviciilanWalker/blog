@@ -16,11 +16,11 @@ features:
     link: /vibe-coding/
     linkText: 上手试试
   - title: 大学生存指南
-    details: 怎么把大学四年过得爽、卷得赢
+    details: 想在大学生存，最重要的就是不要入坑游戏王（bushi
     link: /survival-guide/
-    linkText: 进来看看
+    linkText: 进来瞧瞧
   - title: 一些随笔
-    details: 踩过的坑，搞砸的事，错付的人
+    details: 搞砸的事与踩过的坑
     link: /notes/
     linkText: 随便看看
 ---
