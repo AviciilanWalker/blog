@@ -226,33 +226,21 @@ AI 偶尔会写出"看起来能跑但逻辑有微妙错误"的代码。比如日
 
 ---
 
-### 第一步：检查电脑有没有 Node.js
+### 第一步：一条命令装 Claude Code
 
-Claude Code 依赖 Node.js 运行。先看看你电脑装了没。
+按 `Win` 键，输入 `PowerShell`，右键选**以管理员身份运行**。
 
-按 `Win + R`，输入 `cmd` 回车，打开命令行，输入：
-
-```
-node --version
-```
-
-如果出来类似 `v22.11.0` 这样的版本号，说明已经有了，跳到第二步。
-
-如果出来"不是内部或外部命令"，说明没装。去 **[nodejs.org](https://nodejs.org)**，点左边的 **LTS** 按钮下载，下载完一路点"下一步"装好。然后再打开命令行，输入 `node --version` 确认。
-
----
-
-### 第二步：一条命令装 Claude Code
-
-还是在命令行里，输入：
+把下面这行粘贴进去，回车：
 
 ```
-npm install -g @anthropic-ai/claude-code
+irm https://claude.ai/install.ps1 | iex
 ```
 
-等它跑完，输入 `claude --version` 确认装好了。
+等它跑完（大概一两分钟），Claude Code 就装好了。什么都不用管，Node.js 也不用单独装——它自己全包了。
 
-> 如果下载很慢，可以换国内镜像再试：`npm install -g @anthropic-ai/claude-code --registry=https://registry.npmmirror.com`
+> 如果报错"无法加载文件"之类的红字，先在 PowerShell 里执行这一句：`Set-ExecutionPolicy RemoteSigned -Scope CurrentUser`，输入 `Y` 确认，然后再跑上面那条安装命令。
+
+装完后关掉当前窗口。随便在哪打开一个新的命令行（Win + R → 输入 `cmd`），输入 `claude --version`，看到版本号就说明装好了。
 
 ---
 
