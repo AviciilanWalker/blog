@@ -19,8 +19,8 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '学习笔记', link: '/guide/phase1' },
       { text: 'Vibe Coding', link: '/vibe-coding/' },
+      { text: 'LLM学习', link: '/guide/phase1' },
       { text: '随笔', link: '/notes/' },
       { text: '大学生存指南', link: '/survival-guide/' },
     ],
