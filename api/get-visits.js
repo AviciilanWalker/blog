@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
       const [next, found] = await redis.scan(cursor, { match: 'v:*', count: 100 });
       cursor = next;
       keys = keys.concat(found);
-    } while (cursor !== '0' && keys.length < 200);
+    } while (cursor !== '0' && keys.length < 1000);
 
     keys.sort((a, b) => {
       const ta = parseInt(a.split(':')[1]) || 0;
@@ -25,8 +25,9 @@ module.exports = async (req, res) => {
       return tb - ta;
     });
 
+    const limit = parseInt(req.query.limit || '500');
     const visits = [];
-    for (const key of keys.slice(0, 100)) {
+    for (const key of keys.slice(0, limit)) {
       const raw = await redis.get(key);
       if (raw) visits.push(typeof raw === 'string' ? JSON.parse(raw) : raw);
     }

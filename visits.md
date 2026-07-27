@@ -23,7 +23,7 @@ function checkPassword() {
 
 async function loadVisits() {
   try {
-    const res = await fetch('/api/get-visits?secret=requiem2026')
+    const res = await fetch('/api/get-visits?secret=requiem2026&limit=500')
     if (!res.ok) throw new Error('加载失败')
     const data = await res.json()
     visits.value = data.visits || []
@@ -69,7 +69,7 @@ function location(v) {
   <div v-if="loading">加载中...</div>
   <div v-else-if="error" style="color:#e74c3c">出错了：{{ error }}</div>
   <div v-else>
-    <p>共 <strong>{{ total }}</strong> 条记录（最近 100 条）</p>
+    <p>共 <strong>{{ total }}</strong> 条记录（最近 500 条）</p>
     <table>
       <thead>
         <tr>
