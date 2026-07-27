@@ -18,6 +18,7 @@ export default defineConfig({
       { text: '学习笔记', link: '/guide/phase1' },
       { text: 'Vibe Coding', link: '/vibe-coding/' },
       { text: '随笔', link: '/notes/' },
+      { text: '大学生存指南', link: '/survival-guide/' },
     ],
 
     sidebar: {
@@ -40,6 +41,15 @@ export default defineConfig({
           text: 'Vibe Coding',
           items: [
             { text: '入门：让 AI 帮你写代码', link: '/vibe-coding/' },
+          ]
+        }
+      ],
+      '/survival-guide/': [
+        {
+          text: '大学生存指南',
+          items: [
+            { text: '活得更爽', link: '/survival-guide/live-better' },
+            { text: '卷得更猛', link: '/survival-guide/hustle-harder' },
           ]
         }
       ],

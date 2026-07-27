@@ -15,6 +15,10 @@ features:
     details: 让 AI 帮你写代码，你只需要描述你想要什么
     link: /vibe-coding/
     linkText: 上手试试
+  - title: 大学生存指南
+    details: 怎么把大学四年过得爽、卷得赢
+    link: /survival-guide/
+    linkText: 进来看看
   - title: 一些随笔
     details: 踩过的坑，搞砸的事，错付的人
     link: /notes/
