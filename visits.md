@@ -39,7 +39,7 @@ function formatTime(iso) {
   if (!iso) return ''
   const d = new Date(iso)
   const pad = n => String(n).padStart(2, '0')
-  return `${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`
+  return `${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
 }
 
 function location(v) {
@@ -85,7 +85,7 @@ function location(v) {
           <td style="white-space:nowrap;font-size:0.85em;">{{ formatTime(v.time) }}</td>
           <td style="font-family:monospace;font-size:0.82em;">{{ v.ip }}</td>
           <td style="font-size:0.85em;">{{ location(v) }}</td>
-          <td style="font-family:monospace;font-size:0.8em;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="v.path">{{ v.path || '/' }}</td>
+          <td style="font-family:monospace;font-size:0.82em;word-break:break-all;">{{ v.path || '/' }}</td>
           <td style="font-size:0.78em;max-width:180px;">
             {{ v.device !== 'desktop' && v.device ? v.device : '' }}
             {{ v.browser || '' }}
