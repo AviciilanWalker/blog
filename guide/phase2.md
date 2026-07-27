@@ -7,41 +7,83 @@
 
 ## 目录
 
-1. [概览：一个 token 的旅程](#概览一个-token-的旅程)
-2. [第一站：Tokenization（分词）](#第一站tokenization分词)
-   - [BPE 算法动手走一遍](#bpe-算法动手走一遍)
-   - [词表大小的权衡](#词表大小的权衡)
-   - [分词器带来的"怪癖"](#分词器带来的怪癖)
-3. [第二站：Embedding（嵌入）](#第二站embedding嵌入)
-   - [从 ID 到向量](#从-id-到向量)
-   - [余弦相似度与欧氏距离](#余弦相似度与欧氏距离)
-   - [向量空间里的语义几何](#向量空间里的语义几何)
-   - [Positional Encoding（位置编码）](#positional-encoding位置编码)
-4. [第三站：Self-Attention（自注意力）](#第三站self-attention自注意力)
-   - [直观理解：图书馆检索的类比](#直观理解图书馆检索的类比)
-   - [Q、K、V 三步走](#qk-v-三步走)
-   - [矩阵形式：一次性算完](#矩阵形式一次性算完)
-   - [为什么要除以 √dₖ](#为什么要除以-d)
-5. [第四站：Multi-Head Attention（多头注意力）](#第四站multi-head-attention多头注意力)
-   - [为什么一个头不够？](#为什么一个头不够)
-   - [具体怎么做](#具体怎么做)
-   - [动手算一个迷你多头](#动手算一个迷你多头)
-   - [各头真的学到了不同的东西吗？](#各头真的学到了不同的东西吗)
-   - [多头 vs 单大头：为什么必须"切"？](#多头-vs-单大头为什么必须切)
-6. [第五站：完整的 Transformer 层](#第五站完整的-transformer-层)
-   - [残差连接（Residual Connection）](#残差连接residual-connection)
-   - [Layer Normalization（层归一化）](#layer-normalization层归一化)
-   - [Feed-Forward Network（前馈网络）](#feed-forward-network前馈网络)
-   - [一个完整层的全景图](#一个完整层的全景图)
-7. [第六站：从层到模型](#第六站从层到模型)
-   - [堆叠：层数越多越"聪明"？](#堆叠层数越多越聪明)
-   - [参数是怎么算出来的](#参数是怎么算出来的)
-8. [第七站：自回归生成](#第七站自回归生成)
-   - [逐 token 循环](#逐-token-循环)
-   - [KV Cache：为什么不用每次都重算？](#kv-cache为什么不用每次都重算)
-   - [Causal Mask（因果遮罩）](#causal-mask因果遮罩)
-   - [采样策略：Temperature、Top-p、Top-k](#采样策略temperaturetop-ptop-k)
-9. [本阶段小结](#本阶段小结)
+- [目录](#目录)
+- [概览：一个 token 的旅程](#概览一个-token-的旅程)
+- [第一站：Tokenization（分词）](#第一站tokenization分词)
+  - [BPE 算法动手走一遍](#bpe-算法动手走一遍)
+  - [词表大小的权衡](#词表大小的权衡)
+  - [分词器带来的"怪癖"](#分词器带来的怪癖)
+- [第二站：Embedding（嵌入）](#第二站embedding嵌入)
+  - [从 ID 到向量](#从-id-到向量)
+    - [为什么必须是向量？](#为什么必须是向量)
+  - [余弦相似度与欧氏距离](#余弦相似度与欧氏距离)
+    - [余弦相似度：只看方向，不看长度](#余弦相似度只看方向不看长度)
+    - [欧氏距离：看两点之间的直线距离](#欧氏距离看两点之间的直线距离)
+    - [两者的联系与选择](#两者的联系与选择)
+    - [动手算一遍](#动手算一遍)
+    - [为什么是这个维度数（而不是 50 维或 50000 维）？](#为什么是这个维度数而不是-50-维或-50000-维)
+  - [向量空间里的语义几何](#向量空间里的语义几何)
+  - [Positional Encoding（位置编码）](#positional-encoding位置编码)
+    - [公式](#公式)
+    - [为什么是 sin 和 cos？动手算一个](#为什么是-sin-和-cos动手算一个)
+    - [核心特性：线性相对位置](#核心特性线性相对位置)
+- [第三站：Self-Attention（自注意力）](#第三站self-attention自注意力)
+  - [直观理解：图书馆检索的类比](#直观理解图书馆检索的类比)
+  - [Q、K、V 三步走](#qkv-三步走)
+    - [权重矩阵到底长什么样？](#权重矩阵到底长什么样)
+    - [这些数字是怎么来的？](#这些数字是怎么来的)
+    - [为什么需要三套矩阵，一套不够吗？](#为什么需要三套矩阵一套不够吗)
+    - [什么是 Softmax？](#什么是-softmax)
+    - [手算一遍](#手算一遍)
+    - [为什么要用 e^x？不能直接拿原始得分做归一化吗？](#为什么要用-ex不能直接拿原始得分做归一化吗)
+    - [完整的直观感受](#完整的直观感受)
+  - [矩阵形式：一次性算完](#矩阵形式一次性算完)
+  - [为什么要除以 √dₖ](#为什么要除以-dₖ)
+    - [举个具体例子](#举个具体例子)
+    - [为什么是 √dₖ 而不是 dₖ 或其他值？](#为什么是-dₖ-而不是-dₖ-或其他值)
+    - [总结](#总结)
+- [第四站：Multi-Head Attention（多头注意力）](#第四站multi-head-attention多头注意力)
+  - [为什么一个头不够？](#为什么一个头不够)
+  - [具体怎么做](#具体怎么做)
+  - [动手算一个迷你多头](#动手算一个迷你多头)
+  - [各头真的学到了不同的东西吗？](#各头真的学到了不同的东西吗)
+  - [多头 vs 单大头：为什么必须"切"？](#多头-vs-单大头为什么必须切)
+- [第五站：完整的 Transformer 层](#第五站完整的-transformer-层)
+  - [残差连接（Residual Connection）](#残差连接residual-connection)
+    - [没有残差会怎样？](#没有残差会怎样)
+    - [加了残差之后](#加了残差之后)
+    - [不止防衰减](#不止防衰减)
+  - [Layer Normalization（层归一化）](#layer-normalization层归一化)
+    - [它在做什么](#它在做什么)
+    - [为什么是 LayerNorm 而不是 BatchNorm？](#为什么是-layernorm-而不是-batchnorm)
+    - [2026 年：从 LayerNorm 到 RMSNorm](#2026-年从-layernorm-到-rmsnorm)
+    - [Pre-LN vs Post-LN](#pre-ln-vs-post-ln)
+  - [Feed-Forward Network（前馈网络）](#feed-forward-network前馈网络)
+    - [为什么 Attention 之后还需要 FFN？](#为什么-attention-之后还需要-ffn)
+    - [结构：膨胀再收缩](#结构膨胀再收缩)
+    - [激活函数详解：ReLU → GELU → SwiGLU](#激活函数详解relu--gelu--swiglu)
+    - [FFN 为什么能存储知识：键值记忆假说](#ffn-为什么能存储知识键值记忆假说)
+    - [为什么是 4 倍膨胀？](#为什么是-4-倍膨胀)
+  - [一个完整层的全景图](#一个完整层的全景图)
+- [第六站：从层到模型](#第六站从层到模型)
+  - [堆叠：层数越多越"聪明"？](#堆叠层数越多越聪明)
+  - [参数是怎么算出来的](#参数是怎么算出来的)
+- [第七站：自回归生成](#第七站自回归生成)
+  - [逐 token 循环](#逐-token-循环)
+  - [KV Cache：为什么不用每次都重算？](#kv-cache为什么不用每次都重算)
+    - [显存代价](#显存代价)
+    - [应对方案](#应对方案)
+  - [Causal Mask（因果遮罩）](#causal-mask因果遮罩)
+  - [采样策略：Temperature、Top-p、Top-k](#采样策略temperaturetop-ptop-k)
+- [本阶段小结](#本阶段小结)
+- [延伸阅读与可视化资源](#延伸阅读与可视化资源)
+  - [必看交互工具](#必看交互工具)
+  - [深入阅读](#深入阅读)
+  - [图片附录](#图片附录)
+- [参考文献与图片来源](#参考文献与图片来源)
+  - [论文](#论文)
+  - [核心参考](#核心参考)
+  - [图片来源](#图片来源)
 
 ---
 
@@ -88,16 +130,16 @@ w i d e s t </w>  (×3)
 
 **第二步：统计所有相邻字符对的频率**：
 
-| 字符对 | 出现次数 | 出现在哪些词里 |
-|--------|---------|--------------|
-| `(e, s)` | 6 | newest(×3) + widest(×3) |
-| `(s, t)` | 6 | newest(×3) + widest(×3) |
-| `(l, o)` | 7 | low(×5) + lower(×2) |
-| `(o, w)` | 7 | low(×5) + lower(×2) |
-| `(w, </w>)` | 5 | low(×5) |
-| `(w, e)` | 5 | lower(×2) + newest(×3) |
-| `(e, w)` | 3 | newest(×3) |
-| ... | ... | ... |
+| 字符对      | 出现次数 | 出现在哪些词里          |
+| ----------- | -------- | ----------------------- |
+| `(e, s)`    | 6        | newest(×3) + widest(×3) |
+| `(s, t)`    | 6        | newest(×3) + widest(×3) |
+| `(l, o)`    | 7        | low(×5) + lower(×2)     |
+| `(o, w)`    | 7        | low(×5) + lower(×2)     |
+| `(w, </w>)` | 5        | low(×5)                 |
+| `(w, e)`    | 5        | lower(×2) + newest(×3)  |
+| `(e, w)`    | 3        | newest(×3)              |
+| ...         | ...      | ...                     |
 
 **第三步：合并频率最高的对**。`(l, o)` 7 次和 `(o, w)` 7 次并列最高，选 `(l, o)` → 新 token `lo`。词表变成 12 个，达到目标，过程结束。
 
@@ -119,11 +161,11 @@ w i d e s t </w>  (×3)
 
 ### 词表大小的权衡
 
-| 词表大小 | 优点 | 缺点 |
-|---------|------|------|
-| **太小** (如 1 万) | 每个 token 含义明确 | 一个词被拆很碎，序列变长，推理变慢 |
-| **太大** (如 10 万+) | 常见词不被拆，序列短 | 词表大 → 嵌入矩阵大 → 显存占用大 |
-| **中等** (3-5 万) | 目前主流选择，平衡效率和覆盖 | — |
+| 词表大小             | 优点                         | 缺点                               |
+| -------------------- | ---------------------------- | ---------------------------------- |
+| **太小** (如 1 万)   | 每个 token 含义明确          | 一个词被拆很碎，序列变长，推理变慢 |
+| **太大** (如 10 万+) | 常见词不被拆，序列短         | 词表大 → 嵌入矩阵大 → 显存占用大   |
+| **中等** (3-5 万)    | 目前主流选择，平衡效率和覆盖 | —                                  |
 
 各代模型的词表大小变化：GPT-2 为 50,257，GPT-3/4 约 10 万，DeepSeek-V3 约 12.8 万；到了 2026 年，Llama 4 约 20.2 万，DeepSeek V4 约 12.9 万。词表越大，嵌入矩阵越大（后面会讲），所以不能无限扩。
 
@@ -250,13 +292,13 @@ d = √[(1-1.5)² + (1-1.2)²] = √[0.25 + 0.04] ≈ 0.54   ← 更近
 
 #### 两者的联系与选择
 
-| 特性 | 余弦相似度 | 欧氏距离 |
-|------|-----------|---------|
-| 衡量什么 | 方向是否一致 | 位置是否接近 |
-| 受向量长度影响 | 否 | 是 |
-| 取值范围 | [-1, 1]（实际嵌入通常 ≥ 0） | [0, +∞) |
-| 典型场景 | 语义搜索、文本相似度 | 聚类（K-Means）、图像匹配 |
-| 计算复杂度 | O(d) | O(d) |
+| 特性           | 余弦相似度                  | 欧氏距离                  |
+| -------------- | --------------------------- | ------------------------- |
+| 衡量什么       | 方向是否一致                | 位置是否接近              |
+| 受向量长度影响 | 否                          | 是                        |
+| 取值范围       | [-1, 1]（实际嵌入通常 ≥ 0） | [0, +∞)                   |
+| 典型场景       | 语义搜索、文本相似度        | 聚类（K-Means）、图像匹配 |
+| 计算复杂度     | O(d)                        | O(d)                      |
 
 **一个关键细节**：如果所有向量都预先做了 **L2 归一化**（把长度统一缩放到 1），那么余弦相似度和欧氏距离是**等价的**——两者之间存在严格的单调关系。很多向量数据库（如 Chroma、Milvus）内部会先把向量归一化，然后用欧氏距离近似余弦相似度来加速检索。
 
@@ -310,25 +352,25 @@ d = √[(0.8-0.1)² + (0.2-0.8)² + (0.1-0.8)²]
 
 先看历史上这个数字是怎么演化的：
 
-| 模型 (历史) | 嵌入维度 d | 总参数量 | 年份 |
-|------------|-----------|---------|------|
-| GPT-2 Small | 768 | 1.24 亿 | 2019 |
-| GPT-2 XL | 1,600 | 15 亿 | 2019 |
-| GPT-3 | 12,288 | 1,750 亿 | 2020 |
-| LLaMA-7B | 4,096 | 70 亿 | 2023 |
-| LLaMA-70B | 8,192 | 700 亿 | 2023 |
-| DeepSeek-V3 | 7,168 | 6,710 亿（MoE） | 2024 |
+| 模型 (历史) | 嵌入维度 d | 总参数量        | 年份 |
+| ----------- | ---------- | --------------- | ---- |
+| GPT-2 Small | 768        | 1.24 亿         | 2019 |
+| GPT-2 XL    | 1,600      | 15 亿           | 2019 |
+| GPT-3       | 12,288     | 1,750 亿        | 2020 |
+| LLaMA-7B    | 4,096      | 70 亿           | 2023 |
+| LLaMA-70B   | 8,192      | 700 亿          | 2023 |
+| DeepSeek-V3 | 7,168      | 6,710 亿（MoE） | 2024 |
 
 再到 2026 年的选择：
 
-| 模型 (2026) | 嵌入维度 d | 总参数量 | 备注 |
-|------------|-----------|---------|------|
-| **DeepSeek V4 Flash** | **4,096** | 2,840 亿 (MoE, ~130 亿激活) | 轻量旗舰，性价比路线 |
-| **Llama 4 Scout** | **5,120** | 1,090 亿 (MoE, 170 亿激活) | 10M 上下文，开源标杆 |
-| **Llama 4 Scout (Instruct)** | **6,144** | 1,090 亿 (MoE, 170 亿激活) | 多模态变体，维度更大 |
-| **DeepSeek V4 Pro** | **7,168** | 1.6 万亿 (MoE, ~490 亿激活) | 正式旗舰 |
-| **Kimi K3** | 未公开 | 2.8 万亿 (MoE, ~500 亿激活) | 估计在 4096-7168 范围 |
-| **Qwen 3.8-Max** | 未公开 | 2.4 万亿 (MoE) | 官方未放出技术报告 |
+| 模型 (2026)                  | 嵌入维度 d | 总参数量                    | 备注                  |
+| ---------------------------- | ---------- | --------------------------- | --------------------- |
+| **DeepSeek V4 Flash**        | **4,096**  | 2,840 亿 (MoE, ~130 亿激活) | 轻量旗舰，性价比路线  |
+| **Llama 4 Scout**            | **5,120**  | 1,090 亿 (MoE, 170 亿激活)  | 10M 上下文，开源标杆  |
+| **Llama 4 Scout (Instruct)** | **6,144**  | 1,090 亿 (MoE, 170 亿激活)  | 多模态变体，维度更大  |
+| **DeepSeek V4 Pro**          | **7,168**  | 1.6 万亿 (MoE, ~490 亿激活) | 正式旗舰              |
+| **Kimi K3**                  | 未公开     | 2.8 万亿 (MoE, ~500 亿激活) | 估计在 4096-7168 范围 |
+| **Qwen 3.8-Max**             | 未公开     | 2.4 万亿 (MoE)              | 官方未放出技术报告    |
 
 可以看到一个有趣的趋势：**维度并没有随着模型变大而无限膨胀**。GPT-3（2020）就用了 12,288 维，但后来的模型反而"收敛"到了 4,096-7,168 这个范围。原因也很直接——MoE 架构让模型用"更多专家"而非"更宽的维度"来增加容量，这样对 GPU 显存更友好。
 
@@ -507,13 +549,13 @@ $$
 
 Self-Attention 做的是同一件事，只不过是在向量空间里：
 
-| 图书馆类比 | Self-Attention 中的对应 |
-|-----------|----------------------|
-| 你的查询意图 | **Q（Query，查询向量）** — "我在找什么？" |
-| 每本书的标题/目录 | **K（Key，键向量）** — "我这本书讲什么？" |
-| 每本书的实际内容 | **V（Value，值向量）** — "我能提供什么信息？" |
-| 你根据相关性决定读多少 | **Attention 权重** — Q·K 的点积，越大越相关 |
-| 综合摘录写报告 | **加权求和** — 所有 V 按权重加起来 |
+| 图书馆类比             | Self-Attention 中的对应                       |
+| ---------------------- | --------------------------------------------- |
+| 你的查询意图           | **Q（Query，查询向量）** — "我在找什么？"     |
+| 每本书的标题/目录      | **K（Key，键向量）** — "我这本书讲什么？"     |
+| 每本书的实际内容       | **V（Value，值向量）** — "我能提供什么信息？" |
+| 你根据相关性决定读多少 | **Attention 权重** — Q·K 的点积，越大越相关   |
+| 综合摘录写报告         | **加权求和** — 所有 V 按权重加起来            |
 
 ### Q、K、V 三步走
 
@@ -790,12 +832,12 @@ $$
 
 #### 总结
 
-| 没有缩放 | 除以 $\sqrt{d_k}$ 后 |
-|---------|---------------------|
+| 没有缩放                       | 除以 $\sqrt{d_k}$ 后 |
+| ------------------------------ | -------------------- |
 | 点积方差 ≈ $d_k$（越大越分散） | 点积方差 ≈ 1（稳定） |
-| Softmax 趋向 one-hot | Softmax 输出柔和 |
-| 梯度接近零，学不动 | 梯度健康，正常学习 |
-| 大模型直接崩 | 大模型正常训练 |
+| Softmax 趋向 one-hot           | Softmax 输出柔和     |
+| 梯度接近零，学不动             | 梯度健康，正常学习   |
+| 大模型直接崩                   | 大模型正常训练       |
 
 这个 $\sqrt{d_k}$ 是原始 Transformer 论文中最不起眼却最关键的细节之一——没有它，深层 Attention 模型根本训不起来。
 
@@ -882,12 +924,12 @@ Head 1 的注意力权重:               Head 2 的注意力权重:
 
 是的。研究者通过可视化 Attention 权重发现，不同头确实自发分化了分工。以下是一些被反复观察到的模式：
 
-| 头类型 | 行为特征 | 例子 |
-|--------|---------|------|
-| **语法头** | 关注相邻位置的句法搭配 | 形容词 → 它修饰的名词 |
-| **指代头** | 关注前文中提到过的实体 | "它" → 三句话前的"那只猫" |
-| **分隔头** | 关注标点或从句边界 | 逗号、句号之间的片段 |
-| **位置头** | 关注固定偏移距离的词 | 总是关注前一个或前两个词 |
+| 头类型     | 行为特征                   | 例子                                |
+| ---------- | -------------------------- | ----------------------------------- |
+| **语法头** | 关注相邻位置的句法搭配     | 形容词 → 它修饰的名词               |
+| **指代头** | 关注前文中提到过的实体     | "它" → 三句话前的"那只猫"           |
+| **分隔头** | 关注标点或从句边界         | 逗号、句号之间的片段                |
+| **位置头** | 关注固定偏移距离的词       | 总是关注前一个或前两个词            |
 | **冗余头** | 和其他头学到几乎相同的模式 | 约占 10-30%，可能浪费但不会损害性能 |
 
 研究还发现：**底层（靠近输入）的头分工更明显，高层（靠近输出）的头趋向均匀关注**——底层在做具体的模式匹配，高层在做全局语义融合。
@@ -1008,13 +1050,13 @@ LayerNorm（逐样本）:              BatchNorm（逐特征维度）:
 
 对比：
 
-| | LayerNorm | BatchNorm |
-|--|-----------|-----------|
-| 归一化方向 | 沿特征维度（横向） | 沿 batch 维度（纵向） |
-| 统计范围 | 一个样本内部 | 一个特征跨所有样本 |
-| 受 batch size 影响 | 完全不受 | 严重依赖大 batch |
-| 训练/推理一致 | 完全一致 | 需要切换（训练时用当前 batch 统计，推理时用历史 moving average） |
-| 序列长度变化 | 天然兼容 | 每个位置需要单独统计，变长时很麻烦 |
+|                    | LayerNorm          | BatchNorm                                                        |
+| ------------------ | ------------------ | ---------------------------------------------------------------- |
+| 归一化方向         | 沿特征维度（横向） | 沿 batch 维度（纵向）                                            |
+| 统计范围           | 一个样本内部       | 一个特征跨所有样本                                               |
+| 受 batch size 影响 | 完全不受           | 严重依赖大 batch                                                 |
+| 训练/推理一致      | 完全一致           | 需要切换（训练时用当前 batch 统计，推理时用历史 moving average） |
+| 序列长度变化       | 天然兼容           | 每个位置需要单独统计，变长时很麻烦                               |
 
 Transformer 选择 LayerNorm 的原因很直接：输入是变长序列，每个 token 位置独立计算，BatchNorm 跨序列统计时既会遇到变长带来的 padding 问题，又依赖足够大的 batch size 才能让统计量稳定。LayerNorm 只在每个 token 自己内部操作，天然适合 NLP 场景。
 
@@ -1140,12 +1182,12 @@ $$\text{FFN}_{\text{SwiGLU}}(x) = (\text{SiLU}(xW_{\text{gate}}) \odot xW_{\text
 
 门控的核心价值是什么？它让 FFN 学会**根据输入内容动态选择激活哪些特征通道**。"动词时态"相关的维度可能只在处理动词时被门控放行，其他时候被抑制；"数字计算"相关的维度在处理数学表达时打开。这种条件激活比 ReLU 的"一刀切"精细得多。
 
-| 激活函数 | 公式 | 特点 | 代表模型 |
-|---------|------|------|---------|
-| ReLU | $\max(0, x)$ | 最快，但负值归零 | 早期 CNN |
-| GELU | $x \cdot \Phi(x)$ | 平滑，概率性抑制 | BERT, GPT-2/3 |
-| SiLU/Swish | $x \cdot \sigma(x)$ | 自门控，负值不归零 | Llama 系列（SwiGLU 的组件） |
-| SwiGLU | $\text{SiLU}(xW_g) \odot (xW_u)$ | 显式门控，动态通道选择 | Llama 3/4, DeepSeek V4, Qwen 3, Kimi K3 |
+| 激活函数   | 公式                             | 特点                   | 代表模型                                |
+| ---------- | -------------------------------- | ---------------------- | --------------------------------------- |
+| ReLU       | $\max(0, x)$                     | 最快，但负值归零       | 早期 CNN                                |
+| GELU       | $x \cdot \Phi(x)$                | 平滑，概率性抑制       | BERT, GPT-2/3                           |
+| SiLU/Swish | $x \cdot \sigma(x)$              | 自门控，负值不归零     | Llama 系列（SwiGLU 的组件）             |
+| SwiGLU     | $\text{SiLU}(xW_g) \odot (xW_u)$ | 显式门控，动态通道选择 | Llama 3/4, DeepSeek V4, Qwen 3, Kimi K3 |
 
 #### FFN 为什么能存储知识：键值记忆假说
 
@@ -1214,15 +1256,15 @@ SwiGLU 模型因为有三个矩阵，中间维度算的是 $\frac{8}{3}d_{\text{
 
 GPT-3 有 96 层，每层 12,288 维，12,288/64 = 192 个注意力头。各模型的层数和维度：
 
-| 模型 | 层数 | 隐藏维度 | 头数 | KV 头数 | 总参数 | 激活参数 |
-|------|------|---------|------|---------|--------|---------|
-| GPT-2 Small (2019) | 12 | 768 | 12 | — | 1.24 亿 | 1.24 亿 |
-| GPT-3 (2020) | 96 | 12,288 | 96 | — | 1,750 亿 | 1,750 亿 |
-| LLaMA-7B (2023) | 32 | 4,096 | 32 | — | 70 亿 | 70 亿 |
-| **Llama 4 Scout (2026)** | **48** | **5,120** | **40** | **8** | 1,090 亿 | **170 亿** |
-| **DeepSeek V4 Flash (2026)** | **43** | **4,096** | **64** | **1** | 2,840 亿 | **~130 亿** |
-| **DeepSeek V4 Pro (2026)** | **61** | **7,168** | **128** | **1** | 1.6 万亿 | **~490 亿** |
-| **Kimi K3 (2026)** | 未公开 | 未公开 | 未公开 | 未公开 | 2.8 万亿 | **~500 亿** |
+| 模型                         | 层数   | 隐藏维度  | 头数    | KV 头数 | 总参数   | 激活参数    |
+| ---------------------------- | ------ | --------- | ------- | ------- | -------- | ----------- |
+| GPT-2 Small (2019)           | 12     | 768       | 12      | —       | 1.24 亿  | 1.24 亿     |
+| GPT-3 (2020)                 | 96     | 12,288    | 96      | —       | 1,750 亿 | 1,750 亿    |
+| LLaMA-7B (2023)              | 32     | 4,096     | 32      | —       | 70 亿    | 70 亿       |
+| **Llama 4 Scout (2026)**     | **48** | **5,120** | **40**  | **8**   | 1,090 亿 | **170 亿**  |
+| **DeepSeek V4 Flash (2026)** | **43** | **4,096** | **64**  | **1**   | 2,840 亿 | **~130 亿** |
+| **DeepSeek V4 Pro (2026)**   | **61** | **7,168** | **128** | **1**   | 1.6 万亿 | **~490 亿** |
+| **Kimi K3 (2026)**           | 未公开 | 未公开    | 未公开  | 未公开  | 2.8 万亿 | **~500 亿** |
 
 > 注：Kimi K3 完整架构参数将于 2026/07/27 技术报告中公开。所有 2026 年模型均为 MoE（混合专家）架构，激活参数远小于总参数。
 
@@ -1236,13 +1278,13 @@ GPT-3 有 96 层，每层 12,288 维，12,288/64 = 192 个注意力头。各模�
 
 这也是第一阶段提过的问题——参数到底长什么样？以 GPT-2 Small 为例，手算一遍：
 
-| 组件 | 计算公式 | 数量 |
-|------|---------|------|
-| **词嵌入矩阵** | 词表大小 × 隐藏维度 | 50,257 × 768 = 3860 万 |
-| **位置嵌入矩阵** | 最大长度 × 隐藏维度 | 1024 × 768 = 79 万 |
-| **每层的 Attention** | 4 × (d × d)（W^Q, W^K, W^V, W^O） | 4 × (768 × 768) = 236 万 |
-| **每层的 FFN** | d × 4d + 4d × d（两层全连接） | 2 × (768 × 3072) = 472 万 |
-| **每层 LayerNorm** | 2 × (2 × d)（两个 LN，各有 γ 和 β） | 约 1.2 万 |
+| 组件                 | 计算公式                            | 数量                      |
+| -------------------- | ----------------------------------- | ------------------------- |
+| **词嵌入矩阵**       | 词表大小 × 隐藏维度                 | 50,257 × 768 = 3860 万    |
+| **位置嵌入矩阵**     | 最大长度 × 隐藏维度                 | 1024 × 768 = 79 万        |
+| **每层的 Attention** | 4 × (d × d)（W^Q, W^K, W^V, W^O）   | 4 × (768 × 768) = 236 万  |
+| **每层的 FFN**       | d × 4d + 4d × d（两层全连接）       | 2 × (768 × 3072) = 472 万 |
+| **每层 LayerNorm**   | 2 × (2 × d)（两个 LN，各有 γ 和 β） | 约 1.2 万                 |
 
 一层 ≈ 236 万(Attention) + 472 万(FFN) + 1.2 万(LN) ≈ 709 万。12 层 ≈ 8,508 万。加上嵌入矩阵 ≈ 3,939 万，**总计约 1.24 亿**。
 
@@ -1359,12 +1401,12 @@ batch_size: 1
 
 2026 年主流模型的针对性优化：
 
-| 技术 | 原理 | 效果 | 代表模型 |
-|------|------|------|---------|
-| **GQA（分组查询注意力）** | 多个 Q 头共享一组 K/V 头，减少 K/V 头数 | KV Cache 缩减 4-8× | Llama 4 Scout (8 KV 头 / 40 Q 头) |
-| **MQA（多查询注意力）** | 所有 Q 头共享唯一的 K/V 头 | KV Cache 缩减到 1/头数 | DeepSeek V4 全系 (1 个 KV 头) |
-| **滑动窗口注意力** | 每个 token 只能看到附近固定范围的 token，远程 K/V 不缓存 | KV Cache 有固定上限 | DeepSeek V4 混合注意力中的滑动窗口部分 |
-| **CSA / HCA 稀疏注意力** | 按固定间隔压缩远距离 token 的 K/V，大幅减少存储 | 亚线性 KV Cache 增长 | DeepSeek V4 Pro (压缩率 4× 和 128×) |
+| 技术                      | 原理                                                     | 效果                   | 代表模型                               |
+| ------------------------- | -------------------------------------------------------- | ---------------------- | -------------------------------------- |
+| **GQA（分组查询注意力）** | 多个 Q 头共享一组 K/V 头，减少 K/V 头数                  | KV Cache 缩减 4-8×     | Llama 4 Scout (8 KV 头 / 40 Q 头)      |
+| **MQA（多查询注意力）**   | 所有 Q 头共享唯一的 K/V 头                               | KV Cache 缩减到 1/头数 | DeepSeek V4 全系 (1 个 KV 头)          |
+| **滑动窗口注意力**        | 每个 token 只能看到附近固定范围的 token，远程 K/V 不缓存 | KV Cache 有固定上限    | DeepSeek V4 混合注意力中的滑动窗口部分 |
+| **CSA / HCA 稀疏注意力**  | 按固定间隔压缩远距离 token 的 K/V，大幅减少存储          | 亚线性 KV Cache 增长   | DeepSeek V4 Pro (压缩率 4× 和 128×)    |
 
 > DeepSeek V4 Pro 同时用了 MQA + 稀疏注意力——KV 头只有 1 个，而且远程 token 还被压缩了。这解释了为什么它能跑 1M 上下文但显存不爆炸。
 
@@ -1397,13 +1439,13 @@ adjusted_logits = logits / temperature
 probs = softmax(adjusted_logits)
 ```
 
-| T 值 | 效果 | 适用场景 |
-|------|------|---------|
-| T = 0 | 等价于 Greedy（永远选最高） | 代码生成、数学计算 |
-| T ≈ 0.3-0.5 | 保守，极少"冒险" | 事实性问答、翻译 |
-| T ≈ 0.7-1.0 | 平衡，有一定创意 | 日常对话 |
-| T ≈ 1.2-1.5 | 创意丰富，偶现胡言乱语 | 头脑风暴、写诗 |
-| T > 2.0 | 近乎随机 | 基本没用 |
+| T 值        | 效果                        | 适用场景           |
+| ----------- | --------------------------- | ------------------ |
+| T = 0       | 等价于 Greedy（永远选最高） | 代码生成、数学计算 |
+| T ≈ 0.3-0.5 | 保守，极少"冒险"            | 事实性问答、翻译   |
+| T ≈ 0.7-1.0 | 平衡，有一定创意            | 日常对话           |
+| T ≈ 1.2-1.5 | 创意丰富，偶现胡言乱语      | 头脑风暴、写诗     |
+| T > 2.0     | 近乎随机                    | 基本没用           |
 
 原理：T < 1 时，高概率 token 被进一步放大（"马太效应"）；T > 1 时，概率分布被"抹平"，低概率 token 也有机会被选中。
 
@@ -1429,22 +1471,22 @@ probs = softmax(adjusted_logits)
 
 ### 必看交互工具
 
-| 资源 | 说明 |
-|------|------|
-| [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) | Jay Alammar 手绘图解，Transformer 入门圣经 |
-| [The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/) | 同上作者的 GPT-2 深度拆解 |
-| [bbycroft.net/llm](https://bbycroft.net/llm) | 3D 交互式 LLM 推理全过程可视化 |
-| [Cornell BPE Visualizer](https://www.cs.cornell.edu/courses/cs4782/2026sp/demos/bytepair/) | BPE 分词一步步演示 |
-| [Tokenizer Playground](https://context-lab.com/llm-course/demos/tokenization/) | 对比 GPT-2/BERT/T5 三种分词器 |
+| 资源                                                                                       | 说明                                       |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------ |
+| [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)         | Jay Alammar 手绘图解，Transformer 入门圣经 |
+| [The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)                      | 同上作者的 GPT-2 深度拆解                  |
+| [bbycroft.net/llm](https://bbycroft.net/llm)                                               | 3D 交互式 LLM 推理全过程可视化             |
+| [Cornell BPE Visualizer](https://www.cs.cornell.edu/courses/cs4782/2026sp/demos/bytepair/) | BPE 分词一步步演示                         |
+| [Tokenizer Playground](https://context-lab.com/llm-course/demos/tokenization/)             | 对比 GPT-2/BERT/T5 三种分词器              |
 
 ### 深入阅读
 
-| 资源 | 说明 |
-|------|------|
-| ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762) | Transformer 原始论文（2017），值得通读 |
-| [Andrej Karpathy - Let's build GPT from scratch](https://www.youtube.com/watch?v=kCc8FmEb1nY) | 从零手写 GPT，代码逐行讲解 |
-| [Lilian Weng - Attention? Attention!](https://lilianweng.github.io/posts/2018-06-24-attention/) | OpenAI 研究员的 Attention 机制技术综述 |
-| [Sebastian Raschka - Understanding LLMs](https://sebastianraschka.com/blog/2023/llm-reading-list.html) | LLM 论文阅读清单，按主题分类 |
+| 资源                                                                                                   | 说明                                   |
+| ------------------------------------------------------------------------------------------------------ | -------------------------------------- |
+| ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762)                                        | Transformer 原始论文（2017），值得通读 |
+| [Andrej Karpathy - Let's build GPT from scratch](https://www.youtube.com/watch?v=kCc8FmEb1nY)          | 从零手写 GPT，代码逐行讲解             |
+| [Lilian Weng - Attention? Attention!](https://lilianweng.github.io/posts/2018-06-24-attention/)        | OpenAI 研究员的 Attention 机制技术综述 |
+| [Sebastian Raschka - Understanding LLMs](https://sebastianraschka.com/blog/2023/llm-reading-list.html) | LLM 论文阅读清单，按主题分类           |
 
 ### 图片附录
 
@@ -1480,29 +1522,33 @@ probs = softmax(adjusted_logits)
 
 ### 论文
 
-| 标题 | 作者 | 年份 | 链接 |
-|------|------|------|------|
+| 标题                      | 作者           | 年份 | 链接                                                                            |
+| ------------------------- | -------------- | ---- | ------------------------------------------------------------------------------- |
 | Attention Is All You Need | Vaswani et al. | 2017 | [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — Transformer 架构原始论文 |
 
 ### 核心参考
 
-| 标题 | 作者/来源 | 类型 | 链接 |
-|------|----------|------|------|
-| The Illustrated Transformer | Jay Alammar | 博客 | [jalammar.github.io](https://jalammar.github.io/illustrated-transformer/) — Transformer 手绘图解，入门圣经 |
-| The Illustrated GPT-2 | Jay Alammar | 博客 | [jalammar.github.io](https://jalammar.github.io/illustrated-gpt2/) — GPT-2 深度拆解 |
-| Let's build GPT from scratch | Andrej Karpathy | 视频 | [YouTube](https://www.youtube.com/watch?v=kCc8FmEb1nY) — 代码逐行讲解 |
-| Attention? Attention! | Lilian Weng | 博客 | [lilianweng.github.io](https://lilianweng.github.io/posts/2018-06-24-attention/) — Attention 机制技术综述 |
-| Understanding LLMs (Reading List) | Sebastian Raschka | 博客 | [sebastianraschka.com](https://sebastianraschka.com/blog/2023/llm-reading-list.html) — 论文阅读清单 |
-| LLM Visualization | Brendan Bycroft | 交互工具 | [bbycroft.net/llm](https://bbycroft.net/llm) — 3D 推理全过程可视化 |
-| BPE Visualizer | Cornell CS4782 (2026) | 交互工具 | [cs.cornell.edu](https://www.cs.cornell.edu/courses/cs4782/2026sp/demos/bytepair/) — BPE 分词一步步演示 |
-| Tokenizer Playground | Context Lab | 在线工具 | [context-lab.com](https://context-lab.com/llm-course/demos/tokenization/) — 多分词器对比 |
+| 标题                              | 作者/来源             | 类型     | 链接                                                                                                       |
+| --------------------------------- | --------------------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| The Illustrated Transformer       | Jay Alammar           | 博客     | [jalammar.github.io](https://jalammar.github.io/illustrated-transformer/) — Transformer 手绘图解，入门圣经 |
+| The Illustrated GPT-2             | Jay Alammar           | 博客     | [jalammar.github.io](https://jalammar.github.io/illustrated-gpt2/) — GPT-2 深度拆解                        |
+| Let's build GPT from scratch      | Andrej Karpathy       | 视频     | [YouTube](https://www.youtube.com/watch?v=kCc8FmEb1nY) — 代码逐行讲解                                      |
+| Attention? Attention!             | Lilian Weng           | 博客     | [lilianweng.github.io](https://lilianweng.github.io/posts/2018-06-24-attention/) — Attention 机制技术综述  |
+| Understanding LLMs (Reading List) | Sebastian Raschka     | 博客     | [sebastianraschka.com](https://sebastianraschka.com/blog/2023/llm-reading-list.html) — 论文阅读清单        |
+| LLM Visualization                 | Brendan Bycroft       | 交互工具 | [bbycroft.net/llm](https://bbycroft.net/llm) — 3D 推理全过程可视化                                         |
+| BPE Visualizer                    | Cornell CS4782 (2026) | 交互工具 | [cs.cornell.edu](https://www.cs.cornell.edu/courses/cs4782/2026sp/demos/bytepair/) — BPE 分词一步步演示    |
+| Tokenizer Playground              | Context Lab           | 在线工具 | [context-lab.com](https://context-lab.com/llm-course/demos/tokenization/) — 多分词器对比                   |
 
 ### 图片来源
 
-| 图片 | 来源 | 许可 |
-|------|------|------|
-| Self-Attention QKV、矩阵计算、多头注意力、残差连接、Decoder 架构、推理动图 | [Jay Alammar, The Illustrated Transformer / GPT-2](https://jalammar.github.io/) | 版权保留，教学引用 |
-| 完整 Transformer 架构、Encoder/Decoder 堆叠、Self-Attention 简化与详细版、多头注意力、位置编码、子层结构、K-Q 匹配 | [dvgodoy / dl-visuals](https://github.com/dvgodoy/dl-visuals) | CC BY 4.0 |
-| Transformer 原始架构图 (Fig.1) | Vaswani et al., "Attention Is All You Need" (2017) | arXiv 论文 |
-| 自回归采样流程图 | [PLOS One](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0319434) | CC BY 4.0 |
-| 词嵌入 3D/2D 可视化 | [Embedding Plot (Wikipedia)](https://en.wikipedia.org/wiki/Word_embedding) | CC BY-SA |
+| 图片                                                                                                               | 来源                                                                                  | 许可               |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | ------------------ |
+| Self-Attention QKV、矩阵计算、多头注意力、残差连接、Decoder 架构、推理动图                                         | [Jay Alammar, The Illustrated Transformer / GPT-2](https://jalammar.github.io/)       | 版权保留，教学引用 |
+| 完整 Transformer 架构、Encoder/Decoder 堆叠、Self-Attention 简化与详细版、多头注意力、位置编码、子层结构、K-Q 匹配 | [dvgodoy / dl-visuals](https://github.com/dvgodoy/dl-visuals)                         | CC BY 4.0          |
+| Transformer 原始架构图 (Fig.1)                                                                                     | Vaswani et al., "Attention Is All You Need" (2017)                                    | arXiv 论文         |
+| 自回归采样流程图                                                                                                   | [PLOS One](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0319434) | CC BY 4.0          |
+| 词嵌入 3D/2D 可视化                                                                                                | [Embedding Plot (Wikipedia)](https://en.wikipedia.org/wiki/Word_embedding)            | CC BY-SA           |
+
+---
+
+*Nothing lasts forever*

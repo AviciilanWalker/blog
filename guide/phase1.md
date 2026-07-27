@@ -44,11 +44,11 @@
 
 拆解这个名字：
 
-| 词 | 含义 |
-|---|---|
-| **Large / 大** | 参数量巨大（亿级起步，千亿级也有），训练数据量巨大（万亿级 token） |
-| **Language / 语言** | 处理的是人类自然语言（英文、中文、代码也算"语言"） |
-| **Model / 模型** | 本质是一个巨大的数学函数，输入数字序列，输出数字序列 |
+| 词                  | 含义                                                               |
+| ------------------- | ------------------------------------------------------------------ |
+| **Large / 大**      | 参数量巨大（亿级起步，千亿级也有），训练数据量巨大（万亿级 token） |
+| **Language / 语言** | 处理的是人类自然语言（英文、中文、代码也算"语言"）                 |
+| **Model / 模型**    | 本质是一个巨大的数学函数，输入数字序列，输出数字序列               |
 
 ### 它的本质是什么？
 
@@ -167,17 +167,17 @@ ChatGPT 上线两个月用户破亿，成为史上增长最快的产品。这一
 
 **2026 年的更新节奏快到令人窒息——几乎每周都有重磅发布：**
 
-| 时间 | 事件 | 为什么重要 |
-|------|------|-----------|
-| 2026.02 | Claude Opus 4.6 | 大幅强化自主编程和工具调用能力 |
-| 2026.03 | GPT-5.4 | 内置操控电脑的能力——不止是聊天，还能帮你操作软件 |
-| 2026.04 | **DeepSeek V4 Pro** | 1.6 万亿参数，但每次只激活 3%，API 价格只有 GPT 的 1/15 |
-| 2026.04 | GPT-5.5 | 首个同时原生理解文字、图片、音频、视频的模型 |
-| 2026.06 | **Claude Fable 5** | "思考模式"不再需要开关——模型始终在深度思考，回答质量飞跃 |
-| 2026.06 | GLM-5.2（智谱） | 中国模型在代码能力上逼近美国最前沿水平 |
-| 2026.07 | GPT-5.6 | 分三档——旗舰（Sol）、中端（Terra）、平价（Luna），按需选用 |
-| 2026.07 | **Kimi K3（月之暗面）** | 2.8 万亿参数，目前全球最大的开源模型，编程竞技场排名第一 |
-| 2026.07 | **Qwen 3.8-Max（阿里）** | 2.4 万亿参数，紧追全球最前沿 |
+| 时间    | 事件                     | 为什么重要                                                 |
+| ------- | ------------------------ | ---------------------------------------------------------- |
+| 2026.02 | Claude Opus 4.6          | 大幅强化自主编程和工具调用能力                             |
+| 2026.03 | GPT-5.4                  | 内置操控电脑的能力——不止是聊天，还能帮你操作软件           |
+| 2026.04 | **DeepSeek V4 Pro**      | 1.6 万亿参数，但每次只激活 3%，API 价格只有 GPT 的 1/15    |
+| 2026.04 | GPT-5.5                  | 首个同时原生理解文字、图片、音频、视频的模型               |
+| 2026.06 | **Claude Fable 5**       | "思考模式"不再需要开关——模型始终在深度思考，回答质量飞跃   |
+| 2026.06 | GLM-5.2（智谱）          | 中国模型在代码能力上逼近美国最前沿水平                     |
+| 2026.07 | GPT-5.6                  | 分三档——旗舰（Sol）、中端（Terra）、平价（Luna），按需选用 |
+| 2026.07 | **Kimi K3（月之暗面）**  | 2.8 万亿参数，目前全球最大的开源模型，编程竞技场排名第一   |
+| 2026.07 | **Qwen 3.8-Max（阿里）** | 2.4 万亿参数，紧追全球最前沿                               |
 
 **几条值得记住的趋势：**
 
@@ -226,13 +226,13 @@ ChatGPT 上线两个月用户破亿，成为史上增长最快的产品。这一
 
 看几个典型情况：
 
-| 原文 | 分词结果 | 说明 |
-|------|---------|------|
-| `apple` | `["apple"]` | 常见单词是一个 token |
-| `unhappiness` | `["un", "happi", "ness"]` | 罕见词被拆成子词 |
-| `ChatGPT` | `["Chat", "G", "PT"]` | 专有名词按模式切分 |
-| `你好世界` | `["你好", "世界"]` | 中文常见词是一个 token |
-| `20240721` | `["2024", "07", "21"]` | 数字常被拆开 |
+| 原文          | 分词结果                  | 说明                   |
+| ------------- | ------------------------- | ---------------------- |
+| `apple`       | `["apple"]`               | 常见单词是一个 token   |
+| `unhappiness` | `["un", "happi", "ness"]` | 罕见词被拆成子词       |
+| `ChatGPT`     | `["Chat", "G", "PT"]`     | 专有名词按模式切分     |
+| `你好世界`    | `["你好", "世界"]`        | 中文常见词是一个 token |
+| `20240721`    | `["2024", "07", "21"]`    | 数字常被拆开           |
 
 #### BPE 分词算法简介
 
@@ -258,11 +258,11 @@ ChatGPT 上线两个月用户破亿，成为史上增长最快的产品。这一
 
 #### 经验换算
 
-| 文本量 | 约等于 |
-|--------|--------|
-| 1 个 token | 约 4 个英文字符，或 0.5-1 个汉字 |
+| 文本量      | 约等于                               |
+| ----------- | ------------------------------------ |
+| 1 个 token  | 约 4 个英文字符，或 0.5-1 个汉字     |
 | 1,000 token | 约 750 个英文单词，或 500-700 个汉字 |
-| 128K token | 约一部中篇小说 |
+| 128K token  | 约一部中篇小说                       |
 
 ---
 
@@ -293,26 +293,26 @@ LLM 本身是没有长期记忆的。每次你向它发送消息时，服务端�
 
 先看 2025 年的情况（感受一下增长速度）：
 
-| 模型 (2025) | Context Window | 能装下的内容 |
-|-------------|---------------|------------|
-| GPT-3.5 | 4K token | 约 3 页 A4 纸 |
-| GPT-4 | 8K-128K token | 约一篇中篇小说 |
-| Claude 3.5 Sonnet | 200K token | 约一部《三体》第一部 |
-| Gemini 1.5 Pro | 1M+ token | 约 1 小时视频 + 11 小时音频 |
-| DeepSeek-V3 | 128K token | 约一篇长篇小说 |
+| 模型 (2025)       | Context Window | 能装下的内容                |
+| ----------------- | -------------- | --------------------------- |
+| GPT-3.5           | 4K token       | 约 3 页 A4 纸               |
+| GPT-4             | 8K-128K token  | 约一篇中篇小说              |
+| Claude 3.5 Sonnet | 200K token     | 约一部《三体》第一部        |
+| Gemini 1.5 Pro    | 1M+ token      | 约 1 小时视频 + 11 小时音频 |
+| DeepSeek-V3       | 128K token     | 约一篇长篇小说              |
 
 再看 2026 年 7 月的最新情况——**1M token 已是旗舰标配**：
 
-| 模型 (2026.07) | Context Window | 亮点 |
-|---------------|---------------|------|
-| **GPT-5.5** (OpenAI) | 1M token | 128K 最大输出 |
-| **Claude Opus 4.8** (Anthropic) | 1M token | 长上下文不加价（业界唯一） |
-| **Gemini 3.1 Pro** (Google) | 1M token | 分档计费（≤200K 更便宜） |
-| **DeepSeek V4 Pro** | 1M token | 开源 + 极低价 ($0.14/M 输入) |
-| **Kimi K3** (月之暗面) | 1M token | 全球最大开源模型 (2.8T 参数) |
-| **Qwen 3.8-Max** (阿里) | 128K token | 2.4T 参数，中文写作断层领先 |
-| **Llama 4 Scout** (Meta) | **10M token** | 当前最长上下文窗口 |
-| **Grok 4.20** (xAI) | 2M token | — |
+| 模型 (2026.07)                  | Context Window | 亮点                         |
+| ------------------------------- | -------------- | ---------------------------- |
+| **GPT-5.5** (OpenAI)            | 1M token       | 128K 最大输出                |
+| **Claude Opus 4.8** (Anthropic) | 1M token       | 长上下文不加价（业界唯一）   |
+| **Gemini 3.1 Pro** (Google)     | 1M token       | 分档计费（≤200K 更便宜）     |
+| **DeepSeek V4 Pro**             | 1M token       | 开源 + 极低价 ($0.14/M 输入) |
+| **Kimi K3** (月之暗面)          | 1M token       | 全球最大开源模型 (2.8T 参数) |
+| **Qwen 3.8-Max** (阿里)         | 128K token     | 2.4T 参数，中文写作断层领先  |
+| **Llama 4 Scout** (Meta)        | **10M token**  | 当前最长上下文窗口           |
+| **Grok 4.20** (xAI)             | 2M token       | —                            |
 
 仅仅一年半，GPT-3.5 的 4K 变成了旗舰标配 1M，翻了 250 倍。Llama 4 Scout 甚至到了 1000 万 token（可以塞进整部《三体》三部曲）。
 
@@ -339,13 +339,13 @@ LLM 本身是没有长期记忆的。每次你向它发送消息时，服务端�
 
 训练（training）和推理（inference）是一对概念：
 
-| | 训练（Training） | 推理（Inference） |
-|---|---|---|
-| **干什么** | 学习参数，调整权重 | 使用已学好的参数，做预测 |
-| **计算量** | 巨大（数千 GPU，数周-数月） | 相对小（每次只算一遍） |
-| **谁来做** | 模型厂商（OpenAI、Google 等） | 你调用 API 或本地运行 |
-| **类比** | 学生花十年上学 | 毕业考试，拿到卷子就答 |
-| **参数变化** | 参数不断更新 | 参数冻结不变 |
+|              | 训练（Training）              | 推理（Inference）        |
+| ------------ | ----------------------------- | ------------------------ |
+| **干什么**   | 学习参数，调整权重            | 使用已学好的参数，做预测 |
+| **计算量**   | 巨大（数千 GPU，数周-数月）   | 相对小（每次只算一遍）   |
+| **谁来做**   | 模型厂商（OpenAI、Google 等） | 你调用 API 或本地运行    |
+| **类比**     | 学生花十年上学                | 毕业考试，拿到卷子就答   |
+| **参数变化** | 参数不断更新                  | 参数冻结不变             |
 
 推理过程中的自回归循环是速度瓶颈：每次只能生成一个 token，而且要串行处理，所以生成 1,000 个 token 就意味着模型要跑 1,000 次完整的计算。这也是为什么推理速度是一个关键竞争维度。
 
@@ -365,11 +365,11 @@ LLM 本身是没有长期记忆的。每次你向它发送消息时，服务端�
 
 所以下面的速度数据，**前面三个（Cerebras、Groq、标准 GPU 云）是比较不同的"引擎"跑同一个模型的快慢**；DeepSeek 我单独标注，因为它是在标准 GPU 上跑的，速度和其他模型一样受限于 GPU：
 
-| 推理引擎 | 吞吐量 (tok/s) | 是什么 |
-|----------|---------------|--------|
-| **Cerebras** (晶圆级芯片) | **2,500-3,000** | 一整片晶圆当一颗芯片用，内存带宽是 H100 GPU 的 6000 倍 |
-| **Groq** (LPU 架构) | **400-750** | 用 SRAM 取代 GPU 的 HBM 显存，编译器提前排好所有计算步骤 |
-| **标准 GPU 云** (H100/B200) | **100-150** | 目前大多数 API 服务都跑在这类硬件上，包括 DeepSeek |
+| 推理引擎                    | 吞吐量 (tok/s)  | 是什么                                                   |
+| --------------------------- | --------------- | -------------------------------------------------------- |
+| **Cerebras** (晶圆级芯片)   | **2,500-3,000** | 一整片晶圆当一颗芯片用，内存带宽是 H100 GPU 的 6000 倍   |
+| **Groq** (LPU 架构)         | **400-750**     | 用 SRAM 取代 GPU 的 HBM 显存，编译器提前排好所有计算步骤 |
+| **标准 GPU 云** (H100/B200) | **100-150**     | 目前大多数 API 服务都跑在这类硬件上，包括 DeepSeek       |
 
 Cerebras 和 Groq 选择了不同于 NVIDIA GPU 的硬件路线。但超过 300 tok/s 之后，瓶颈就转移到你的终端渲染速度和人类阅读速度了——再快你也看不完。
 
@@ -393,14 +393,14 @@ Cerebras 和 Groq 选择了不同于 NVIDIA GPU 的硬件路线。但超过 300 
 
 **主要国产芯片玩家一览**：
 
-| 厂商 | 代表产品 | FP16 算力 | 定位 | 一句话总结 |
-|------|---------|-----------|------|-----------|
-| **华为昇腾** | 910B → 950PR | 376 TFLOPS → 1.56P (FP4) | 全栈自研，训练+推理 | 绝对主力，唯一能对标 NVIDIA 全产品线的 |
-| **寒武纪** | 思元 590 | 345 TFLOPS | 推理优先 | 字节跳动搜索/推荐系统大规模部署 |
-| **壁仞科技** | BR100 系列 | 突破 1000 TFLOPS | 通用 GPU | 阿里下了万卡级订单，二线中最积极 |
-| **摩尔线程** | MTT S5000 | 1000 TFLOPS (稠密) | 全功能 GPU | DeepSeek V4 Day-0 适配，但高端版仍未量产 |
-| **沐曦** | 曦云 C600 | — | 全国产供应链 | 金融/政务等高安全场景，预订单超 40 亿 |
-| **海光** | 深算二号 DCU | 达 A100 的 80% | 类 CUDA 兼容 | CUDA 迁移门槛最低，52% 企业在评估 |
+| 厂商         | 代表产品     | FP16 算力                | 定位                | 一句话总结                               |
+| ------------ | ------------ | ------------------------ | ------------------- | ---------------------------------------- |
+| **华为昇腾** | 910B → 950PR | 376 TFLOPS → 1.56P (FP4) | 全栈自研，训练+推理 | 绝对主力，唯一能对标 NVIDIA 全产品线的   |
+| **寒武纪**   | 思元 590     | 345 TFLOPS               | 推理优先            | 字节跳动搜索/推荐系统大规模部署          |
+| **壁仞科技** | BR100 系列   | 突破 1000 TFLOPS         | 通用 GPU            | 阿里下了万卡级订单，二线中最积极         |
+| **摩尔线程** | MTT S5000    | 1000 TFLOPS (稠密)       | 全功能 GPU          | DeepSeek V4 Day-0 适配，但高端版仍未量产 |
+| **沐曦**     | 曦云 C600    | —                        | 全国产供应链        | 金融/政务等高安全场景，预订单超 40 亿    |
+| **海光**     | 深算二号 DCU | 达 A100 的 80%           | 类 CUDA 兼容        | CUDA 迁移门槛最低，52% 企业在评估        |
 
 **一个关键区分：训练 vs 推理**：
 
@@ -439,13 +439,13 @@ Cerebras 和 Groq 选择了不同于 NVIDIA GPU 的硬件路线。但超过 300 
 
 #### 减少幻觉的实用方法
 
-| 方法 | 说明 |
-|------|------|
-| **RAG（检索增强生成）** | 先查资料再回答，后面第四阶段会详细讲 |
+| 方法                     | 说明                                             |
+| ------------------------ | ------------------------------------------------ |
+| **RAG（检索增强生成）**  | 先查资料再回答，后面第四阶段会详细讲             |
 | **让模型"展示推理过程"** | 加上"请一步步思考"，模型在铺陈推理时更不容易出错 |
-| **要求引用来源** | "请在你的回答中标明信息来源" |
-| **降低 temperature** | 让输出更保守，减少"创造性编造"的空间 |
-| **人工核实** | 重要事实永远交叉验证 |
+| **要求引用来源**         | "请在你的回答中标明信息来源"                     |
+| **降低 temperature**     | 让输出更保守，减少"创造性编造"的空间             |
+| **人工核实**             | 重要事实永远交叉验证                             |
 
 ---
 
@@ -455,14 +455,14 @@ Cerebras 和 Groq 选择了不同于 NVIDIA GPU 的硬件路线。但超过 300 
 
 下面的产品都有免费额度，随便注册一个就能开始：
 
-| 产品 | 特点 |
-|------|------|
-| **ChatGPT** (chatgpt.com) | 用户最多，生态最丰富（插件、GPTs 商店）。当前旗舰 GPT-5.5 |
-| **Claude** (claude.ai) | 写作和编程能力突出，上下文窗口大。当前旗舰 Claude Opus 4.8 |
-| **DeepSeek** (chat.deepseek.com) | 国产模型，中文能力强，免费，推理速度快。当前旗舰 DeepSeek V4 |
-| **Kimi** (kimi.moonshot.cn) | 超长上下文（100 万 token），K3 模型全球最大开源参数 (2.8T) |
-| **通义千问** (tongyi.aliyun.com) | 阿里出品，当前旗舰 Qwen 3.8-Max，中文写作公认最佳 |
-| **文心一言** (yiyan.baidu.com) | 百度出品，ERNIE 5.0 全模态（文本+图片+音频+视频），已全面免费 |
+| 产品                             | 特点                                                          |
+| -------------------------------- | ------------------------------------------------------------- |
+| **ChatGPT** (chatgpt.com)        | 用户最多，生态最丰富（插件、GPTs 商店）。当前旗舰 GPT-5.5     |
+| **Claude** (claude.ai)           | 写作和编程能力突出，上下文窗口大。当前旗舰 Claude Opus 4.8    |
+| **DeepSeek** (chat.deepseek.com) | 国产模型，中文能力强，免费，推理速度快。当前旗舰 DeepSeek V4  |
+| **Kimi** (kimi.moonshot.cn)      | 超长上下文（100 万 token），K3 模型全球最大开源参数 (2.8T)    |
+| **通义千问** (tongyi.aliyun.com) | 阿里出品，当前旗舰 Qwen 3.8-Max，中文写作公认最佳             |
+| **文心一言** (yiyan.baidu.com)   | 百度出品，ERNIE 5.0 全模态（文本+图片+音频+视频），已全面免费 |
 
 > **2026 年的一个重要变化**: 开源模型（Kimi K3、DeepSeek V4、GLM-5.2、Qwen 3.8）的性能已经追上甚至部分超越闭源旗舰。以前是"闭源领先开源半年"，现在差距基本消失。对于学习者来说，意味着你甚至可以在自己的电脑上跑一个接近 GPT-4 水平的模型。
 
@@ -538,16 +538,16 @@ Hallucination    → LLM 的"说谎"天性
 
 ### 在线交互工具
 
-| 资源 | 类型 | 说明 |
-|------|------|------|
-| [bbycroft.net/llm](https://bbycroft.net/llm) | 3D 交互 | 在浏览器里看 LLM 推理的完整计算过程 |
-| [The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/) | 图解博客 | 手绘风格拆解 GPT-2 架构，新手必读 |
-| [Tokenization 交互演示](https://context-lab.com/llm-course/demos/tokenization/) | 在线工具 | 实时看不同分词器怎么切你的输入 |
-| [OpenAI Tokenizer](https://platform.openai.com/tokenizer) | 在线工具 | 数 token 数，看分词结果 |
-| [Andrej Karpathy - Intro to LLMs](https://www.youtube.com/watch?v=zjkBMFhNj_g) | 视频 (1h) | OpenAI 联合创始人的 LLM 全景通览 |
-| [3Blue1Brown - 神经网络](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) | 视频系列 | 神经网络的数学可视化，零公式焦虑 |
-| [LLM Stats 2026](https://llm-stats.com/) | 排行榜 | 300+ 模型的实时对比：价格、速度、上下文窗口 |
-| [LLM Cost Calculator](https://www.morphllm.com/llm-cost-calculator) | 在线工具 | 对比各 API 的实际费用，避免"天价账单" |
+| 资源                                                                                               | 类型      | 说明                                        |
+| -------------------------------------------------------------------------------------------------- | --------- | ------------------------------------------- |
+| [bbycroft.net/llm](https://bbycroft.net/llm)                                                       | 3D 交互   | 在浏览器里看 LLM 推理的完整计算过程         |
+| [The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)                              | 图解博客  | 手绘风格拆解 GPT-2 架构，新手必读           |
+| [Tokenization 交互演示](https://context-lab.com/llm-course/demos/tokenization/)                    | 在线工具  | 实时看不同分词器怎么切你的输入              |
+| [OpenAI Tokenizer](https://platform.openai.com/tokenizer)                                          | 在线工具  | 数 token 数，看分词结果                     |
+| [Andrej Karpathy - Intro to LLMs](https://www.youtube.com/watch?v=zjkBMFhNj_g)                     | 视频 (1h) | OpenAI 联合创始人的 LLM 全景通览            |
+| [3Blue1Brown - 神经网络](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) | 视频系列  | 神经网络的数学可视化，零公式焦虑            |
+| [LLM Stats 2026](https://llm-stats.com/)                                                           | 排行榜    | 300+ 模型的实时对比：价格、速度、上下文窗口 |
+| [LLM Cost Calculator](https://www.morphllm.com/llm-cost-calculator)                                | 在线工具  | 对比各 API 的实际费用，避免"天价账单"       |
 
 ### 图片附录：先睹为快
 
@@ -589,22 +589,26 @@ Hallucination    → LLM 的"说谎"天性
 
 ### 核心参考
 
-| 标题 | 作者/来源 | 类型 | 链接 |
-|------|----------|------|------|
-| Intro to Large Language Models | Andrej Karpathy | 视频 (1h) | [YouTube](https://www.youtube.com/watch?v=zjkBMFhNj_g) — LLM 全景通览 |
-| Neural Networks (3Blue1Brown) | Grant Sanderson | 视频系列 | [YouTube](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) — 神经网络数学可视化 |
-| The Illustrated GPT-2 | Jay Alammar | 博客 | [jalammar.github.io](https://jalammar.github.io/illustrated-gpt2/) — GPT-2 架构手绘图解 |
-| LLM Visualization | Brendan Bycroft | 交互工具 | [bbycroft.net/llm](https://bbycroft.net/llm) — 3D 推理全过程可视化 |
-| LLM Stats 2026 | — | 数据平台 | [llm-stats.com](https://llm-stats.com/) — 300+ 模型实时对比 |
-| LLM Cost Calculator | Morph | 在线工具 | [morphllm.com](https://www.morphllm.com/llm-cost-calculator) — API 费用对比 |
-| Tokenization 交互演示 | Context Lab | 在线工具 | [context-lab.com](https://context-lab.com/llm-course/demos/tokenization/) — 多分词器对比 |
-| OpenAI Tokenizer | OpenAI | 在线工具 | [platform.openai.com](https://platform.openai.com/tokenizer) — token 计数 |
+| 标题                           | 作者/来源       | 类型      | 链接                                                                                                     |
+| ------------------------------ | --------------- | --------- | -------------------------------------------------------------------------------------------------------- |
+| Intro to Large Language Models | Andrej Karpathy | 视频 (1h) | [YouTube](https://www.youtube.com/watch?v=zjkBMFhNj_g) — LLM 全景通览                                    |
+| Neural Networks (3Blue1Brown)  | Grant Sanderson | 视频系列  | [YouTube](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) — 神经网络数学可视化 |
+| The Illustrated GPT-2          | Jay Alammar     | 博客      | [jalammar.github.io](https://jalammar.github.io/illustrated-gpt2/) — GPT-2 架构手绘图解                  |
+| LLM Visualization              | Brendan Bycroft | 交互工具  | [bbycroft.net/llm](https://bbycroft.net/llm) — 3D 推理全过程可视化                                       |
+| LLM Stats 2026                 | —               | 数据平台  | [llm-stats.com](https://llm-stats.com/) — 300+ 模型实时对比                                              |
+| LLM Cost Calculator            | Morph           | 在线工具  | [morphllm.com](https://www.morphllm.com/llm-cost-calculator) — API 费用对比                              |
+| Tokenization 交互演示          | Context Lab     | 在线工具  | [context-lab.com](https://context-lab.com/llm-course/demos/tokenization/) — 多分词器对比                 |
+| OpenAI Tokenizer               | OpenAI          | 在线工具  | [platform.openai.com](https://platform.openai.com/tokenizer) — token 计数                                |
 
 ### 图片来源
 
-| 图片 | 来源 | 许可 |
-|------|------|------|
-| Transformer 架构图、Self-Attention QKV 向量、矩阵计算、多头注意力、残差连接等 | [Jay Alammar, The Illustrated Transformer / GPT-2](https://jalammar.github.io/) | 版权保留，教学引用 |
-| 完整 Transformer 架构、Encoder/Decoder 堆叠、位置编码等 | [dvgodoy / dl-visuals](https://github.com/dvgodoy/dl-visuals) | CC BY 4.0 |
-| 自回归采样流程图 | [PLOS One](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0319434) | CC BY 4.0 |
-| 词嵌入 3D/2D 可视化 | [Embedding Plot (Wikipedia)](https://en.wikipedia.org/wiki/Word_embedding) | CC BY-SA |
+| 图片                                                                          | 来源                                                                                  | 许可               |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------ |
+| Transformer 架构图、Self-Attention QKV 向量、矩阵计算、多头注意力、残差连接等 | [Jay Alammar, The Illustrated Transformer / GPT-2](https://jalammar.github.io/)       | 版权保留，教学引用 |
+| 完整 Transformer 架构、Encoder/Decoder 堆叠、位置编码等                       | [dvgodoy / dl-visuals](https://github.com/dvgodoy/dl-visuals)                         | CC BY 4.0          |
+| 自回归采样流程图                                                              | [PLOS One](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0319434) | CC BY 4.0          |
+| 词嵌入 3D/2D 可视化                                                           | [Embedding Plot (Wikipedia)](https://en.wikipedia.org/wiki/Word_embedding)            | CC BY-SA           |
+
+---
+
+*这次的花有好好开吗*

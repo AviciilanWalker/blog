@@ -24,3 +24,5 @@ features:
     link: /notes/
     linkText: 随便看看
 ---
+
+*生命绚烂，是因为生命是一种即将终结的艺术*

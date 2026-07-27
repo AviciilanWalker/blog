@@ -362,3 +362,7 @@ Vibe Coding 改变了写代码的姿势，但没改变做事的本质：**你需
 - Cursor Official Documentation, 2026. https://docs.cursor.com
 - Claude Code Official Documentation, 2026. https://docs.anthropic.com/en/docs/claude-code
 - Windsurf Official Documentation, 2026. https://docs.windsurf.com
+
+---
+
+*我们都将在那里找到答案*
