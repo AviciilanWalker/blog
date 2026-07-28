@@ -60,6 +60,7 @@ export default defineConfig({
               collapsed: false,
               items: [
                 { text: '概述', link: '/survival-guide/live-better/' },
+                { text: '人际交往', link: '/survival-guide/live-better/relationships' },
               ]
             },
             {
