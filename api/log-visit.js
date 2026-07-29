@@ -12,6 +12,11 @@ module.exports = async (req, res) => {
   try {
     const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 'unknown';
 
+    // 屏蔽自己的 IP，不记录
+    if (ip === '118.114.81.220') {
+      return res.status(200).json({ ok: true, skipped: true });
+    }
+
     // 解析路径：优先用客户端传来的，其次用 referer
     let path = '';
     try {
